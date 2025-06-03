@@ -24,3 +24,11 @@ CREATE TABLE produtos (
     categoria INT NOT NULL,
     FOREIGN KEY (categoria) REFERENCES categorias(id)
 );
+
+CREATE TABLE times (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    cidade VARCHAR(255),
+    pais VARCHAR(100),
+    data_fundacao DATE
+);
