@@ -1,9 +1,13 @@
 const Time = require('../models/timeModel');
 
 const timeController = {
+    // Criar novo time
     createTime: (req, res) => {
         const newTime = {
-            nome: req.body.nome
+            nome: req.body.nome,
+            cidade: req.body.cidade,
+            pais: req.body.pais,
+            data_fundacao: req.body.fundacao // deve bater com name="fundacao" no form
         };
 
         Time.create(newTime, (err, timeId) => {
@@ -14,6 +18,7 @@ const timeController = {
         });
     },
 
+    // Buscar time por ID
     getTimeById: (req, res) => {
         const timeId = req.params.id;
 
@@ -28,6 +33,7 @@ const timeController = {
         });
     },
 
+    // Listar todos os times
     getAllTimes: (req, res) => {
         Time.getAll((err, times) => {
             if (err) {
@@ -37,10 +43,12 @@ const timeController = {
         });
     },
 
+    // Renderizar formulário de criação
     renderCreateForm: (req, res) => {
         res.render('times/create');
     },
 
+    // Renderizar formulário de edição
     renderEditForm: (req, res) => {
         const timeId = req.params.id;
 
@@ -55,10 +63,14 @@ const timeController = {
         });
     },
 
+    // Atualizar um time
     updateTime: (req, res) => {
         const timeId = req.params.id;
         const updatedTime = {
-            nome: req.body.nome
+            nome: req.body.nome,
+            cidade: req.body.cidade,
+            pais: req.body.pais,
+            data_fundacao: req.body.fundacao
         };
 
         Time.update(timeId, updatedTime, (err) => {
@@ -69,6 +81,7 @@ const timeController = {
         });
     },
 
+    // Excluir um time
     deleteTime: (req, res) => {
         const timeId = req.params.id;
 

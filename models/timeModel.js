@@ -2,13 +2,17 @@ const db = require('../config/db');
 
 const Time = {
     create: (time, callback) => {
-        const query = 'INSERT INTO times (nome) VALUES (?)';
-        db.query(query, [time.nome], (err, results) => {
-            if (err) {
-                return callback(err);
+        const query = 'INSERT INTO times (nome, cidade, pais, data_fundacao) VALUES (?, ?, ?, ?)';
+        db.query(
+            query,
+            [time.nome, time.cidade, time.pais, time.data_fundacao],
+            (err, results) => {
+                if (err) {
+                    return callback(err);
+                }
+                callback(null, results.insertId);
             }
-            callback(null, results.insertId);
-        });
+        );
     },
 
     findById: (id, callback) => {
@@ -32,13 +36,17 @@ const Time = {
     },
 
     update: (id, time, callback) => {
-        const query = 'UPDATE times SET nome = ? WHERE id = ?';
-        db.query(query, [time.nome,id], (err, results) => {
-            if (err) {
-                return callback(err);
+        const query = 'UPDATE times SET nome = ?, cidade = ?, pais = ?, data_fundacao = ? WHERE id = ?';
+        db.query(
+            query,
+            [time.nome, time.cidade, time.pais, time.data_fundacao, id],
+            (err, results) => {
+                if (err) {
+                    return callback(err);
+                }
+                callback(null, results);
             }
-            callback(null, results);
-        });
+        );
     },
 
     delete: (id, callback) => {
@@ -61,6 +69,5 @@ const Time = {
         });
     },
 };
-
 
 module.exports = Time;
